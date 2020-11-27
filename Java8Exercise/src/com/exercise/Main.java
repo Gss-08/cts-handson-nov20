@@ -43,15 +43,9 @@ public class Main {
 			
 			System.out.println("Enter id to be searched");
 			int i=sc.nextInt();
-			if(s.findEmployee(i)) {
-		
-				System.out.println("Employee Found");
-			}
-			else
-			{
-				System.out.println("Employee not found");
-				
-			}
+			
+			List<Employee> at = s.findEmployee(i);
+			at.forEach(e -> System.out.println(e));
 			break;
 			
 		case 3:

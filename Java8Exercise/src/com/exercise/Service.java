@@ -13,12 +13,16 @@ public class Service {
 		list.add(e);
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
-	public  boolean findEmployee(int id) {
-		if(list.contains(id))
-			return true;
-		else
-			return false;
+
+	
+	public  List<Employee> findEmployee(int id) {
+		List<Employee> checkList = new ArrayList<Employee>();
+		for(Employee employee : list) {
+		if( employee.getId()==id) {
+			checkList.add(employee);
+		}
+	}
+		return checkList;
 	}
 	public void getEmployee() {
 		for(Employee s : list) {
