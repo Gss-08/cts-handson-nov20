@@ -1,6 +1,7 @@
 package com.org;
 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,19 +29,22 @@ public class AccountMain {
 			int accno=sc.nextInt();
 			System.out.println("Enter amount");
 			double amount=sc.nextDouble();
+             Account a = new Account();
+			if(a.getAccno()==accno) {
+				
+				throw new AccountAlreadyException("Account already exists");
+				
+			}
 			Account ac = new Account(name, accno, amount);
-			try {
 				s.addAccount(ac);
-			}
-			catch(AccountAlreadyException e){
+
+
+
+	System.out.println("Account Details added");
+	
+
 			
 			
-				if(ac.getAccno()==accno) {
-					
-					throw new AccountAlreadyException(e);
-				}
-				System.out.println("Account already exists");
-			}
 		
 		
 			
@@ -49,33 +53,52 @@ public class AccountMain {
 		case 2:
 			System.out.println("Enter acc no to be removed");
 		int no=sc.nextInt();
-		Account acc= new Account();
-		try {
-		List<Account> al = s.removeAccount(no);
-		al.forEach(e -> System.out.println(e));
-		}
-		catch(AccountNotFoundException e) {
-			if(acc.getAccno()!=no) {
-				throw new AccountNotFoundException(e);
-			}
-			System.out.println("Accunt no does not exist");
-		}
+	
+		
+		List<Account> q=s.list;
+		Iterator<Account> it = q.iterator();
+	    while(it.hasNext()){
+	        Account account = it.next();
+	        if(account.getAccno()!=no){
+	        	throw new AccountNotFoundException("Acc no not found");
+	           
+	        }
+	        break;
+	    }
+	       
+	        	List<Account> al = s.removeAccount(no);
+	        	System.out.println("Acc removed");
+	        	al.forEach(e -> System.out.println(e));
+	        
+	    
+		
+	
+		
+			
+			
+			
 		break;
 		
 		case 3:
 			System.out.println("Enter acc no to searched");
 			int n=sc.nextInt();
-			Account a = new Account();
-			try {
+			List<Account> y=s.list;
+			Iterator<Account> iter = y.iterator();
+		    while(iter.hasNext()){
+		        Account account = iter.next();
+		        if(account.getAccno()!=n){
+		        	throw new AccountNotFoundException("Acc no not found");
+		           
+		        }
+		    break;
+		    }
+		    	
+		    
 				List<Account> la = s.displayByAccno(n);
 				la.forEach(e -> System.out.println(e));
-			}
-			catch(AccountNotFoundException e) {
-				if(a.getAccno()!=n) {
-					throw new AccountNotFoundException(e);
-				}
-				System.out.println("Accunt no does not exist");
-			}
+		    
+				
+			
 			break;
 		case 4:
 			s.displayAll();
