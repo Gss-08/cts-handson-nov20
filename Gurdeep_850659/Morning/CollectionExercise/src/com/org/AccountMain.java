@@ -26,16 +26,21 @@ public class AccountMain {
 			System.out.println("Enter name");
 			String name=sc.next();
 			System.out.println("Enter acc no");
-			int accno=sc.nextInt();
+			int acno=sc.nextInt();
+			List<Account> p=s.list;
+			Iterator<Account> iterator = p.iterator();
+		    while(iterator.hasNext()){
+		        Account account = iterator.next();
+		        if(account.getAccno()==acno){
+		        	throw new AccountNotFoundException("Acc already exists");
+		           
+		        }
+		        break;
+		    }
 			System.out.println("Enter amount");
 			double amount=sc.nextDouble();
-             Account a = new Account();
-			if(a.getAccno()==accno) {
-				
-				throw new AccountAlreadyException("Account already exists");
-				
-			}
-			Account ac = new Account(name, accno, amount);
+            
+			Account ac = new Account(name, acno, amount);
 				s.addAccount(ac);
 
 
